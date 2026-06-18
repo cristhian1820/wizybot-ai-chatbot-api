@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ChatbotModule } from './chatbot/chatbot.module';
 import { ProductsModule } from './products/products.module';
 import { CurrencyModule } from './currency/currency.module';
@@ -16,7 +14,7 @@ import { CurrencyModule } from './currency/currency.module';
     ProductsModule,
     CurrencyModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
