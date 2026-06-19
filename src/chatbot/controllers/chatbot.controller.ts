@@ -19,8 +19,8 @@ export class ChatbotController {
     description: 'Final chatbot response',
     type: ChatResponseDto,
   })
-  chat(@Body() request: ChatRequestDto): ChatResponseDto {
-    const response = this.chatbotService.chat(request.message);
+  async chat(@Body() request: ChatRequestDto): Promise<ChatResponseDto> {
+    const response = await this.chatbotService.chat(request.message);
 
     return { response };
   }

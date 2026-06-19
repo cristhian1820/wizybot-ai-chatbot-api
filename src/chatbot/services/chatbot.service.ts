@@ -1,14 +1,18 @@
 import { Injectable } from '@nestjs/common';
 
-import { ProductsService } from '../../products/services/products.service';
+import { CurrencyService } from '../../currency/services/currency.service';
 
 @Injectable()
 export class ChatbotService {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(private readonly currencyService: CurrencyService) {}
 
-  chat(message: string): string {
-    const products = this.productsService.searchProducts(message);
+  async chat(message: string): Promise<string> {
+    const convertedAmount = await this.currencyService.convertCurrency(
+      350,
+      'EUR',
+      'CAD',
+    );
 
-    return JSON.stringify(products, null, 2);
+    return `350 EUR are ${convertedAmount} CAD. User message: ${message}`;
   }
 }
