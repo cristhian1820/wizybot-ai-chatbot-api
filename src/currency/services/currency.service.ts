@@ -9,6 +9,11 @@ interface OpenExchangeRatesResponse {
 export class CurrencyService {
   constructor(private readonly configService: ConfigService) {}
 
+  /**
+   * Converts an amount between currencies
+   * using the latest exchange rates from
+   * Open Exchange Rates.
+   */
   async convertCurrency(
     amount: number,
     fromCurrency: string,

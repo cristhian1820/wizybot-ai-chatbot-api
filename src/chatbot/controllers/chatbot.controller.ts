@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, HttpCode, HttpStatus } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { ChatbotService } from '../services/chatbot.service';
@@ -9,6 +9,7 @@ import { ChatResponseDto } from '../dto/chat-response.dto';
 export class ChatbotController {
   constructor(private readonly chatbotService: ChatbotService) {}
 
+  @HttpCode(HttpStatus.OK)
   @Post()
   @ApiOperation({
     summary: 'Send a user enquiry to the chatbot',

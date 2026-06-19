@@ -27,6 +27,11 @@ export class OpenAiService {
     });
   }
 
+  /**
+   * Handles OpenAI Function Calling and
+   * orchestrates tool execution to generate
+   * the final chatbot response.
+   */
   async generateResponse(message: string): Promise<string> {
     const firstCompletion = await this.openai.chat.completions.create({
       model: 'gpt-4o-mini',
@@ -131,7 +136,7 @@ export class OpenAiService {
         {
           role: 'system',
           content:
-            'You are a helpful ecommerce assistant. Use the tool results to answer clearly and concisely in English. Include product names and prices when products are available.',
+            'You are a helpful ecommerce assistant. Use the tool results to answer clearly and concisely in English. Do not include image URLs. Do not include raw JSON. If products are available, include only product name, price, currency, and product URL. Use a clean numbered list. If currency conversion is involved, mention that the amount is approximate and based on the latest exchange rates.',
         },
         {
           role: 'user',
@@ -148,6 +153,10 @@ export class OpenAiService {
     );
   }
 
+  /**
+   * Executes the tool requested by OpenAI
+   * and returns the result back to the model.
+   */
   private async executeToolCall(
     functionName: string,
     rawArguments: string,
@@ -155,7 +164,13 @@ export class OpenAiService {
     const args = JSON.parse(rawArguments) as Record<string, unknown>;
 
     if (functionName === 'searchProducts') {
-      return this.productsService.searchProducts(String(args.query));
+      return this.productsService
+        .searchProducts(String(args.query))
+        .map((product) => ({
+          name: product.displayTitle,
+          price: product.price,
+          category: product.productType,
+        }));
     }
 
     if (functionName === 'convertCurrencies') {

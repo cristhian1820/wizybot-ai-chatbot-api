@@ -14,6 +14,11 @@ export class ProductsService implements OnModuleInit {
     await this.loadProducts();
   }
 
+  /**
+   * Searches the product catalog and returns
+   * the two most relevant products based on
+   * the user query.
+   */
   searchProducts(query: string): Product[] {
     const normalizedQuery = this.normalizeText(query);
     const queryWords = normalizedQuery
