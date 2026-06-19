@@ -13,15 +13,6 @@ Technical assessment built with NestJS, OpenAI Function Calling, product search,
 
 ---
 
-## AI Tools
-
-The chatbot uses OpenAI Function Calling to dynamically invoke:
-
-- searchProducts()
-- convertCurrencies()
-
-based on the user's natural language request.
-
 ## Architecture
 
 ```text
@@ -47,6 +38,40 @@ OpenAiService (Function Calling)
            |
            +--> CurrencyService
 ```
+## Project Structure
+
+src/
+├── chatbot/
+│   ├── controllers/
+│   ├── dto/
+│   ├── services/
+│   └── chatbot.module.ts
+│
+├── openai/
+│   ├── services/
+│   └── openai.module.ts
+│
+├── products/
+│   ├── data/
+│   │   └── products_list.csv
+│   ├── interfaces/
+│   ├── services/
+│   └── products.module.ts
+│
+├── currency/
+│   ├── services/
+│   └── currency.module.ts
+│
+└── main.ts
+
+## AI Tools
+
+The chatbot uses OpenAI Function Calling to dynamically invoke:
+
+- searchProducts()
+- convertCurrencies()
+
+based on the user's natural language request.
 
 ## Requirements
 
